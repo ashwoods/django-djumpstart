@@ -1,0 +1,70 @@
+# basic requirements file
+
+#!---- system requirements
+
+#PIL
+#selenium
+#Werkzeug
+#MySQL-python
+#pysqlite
+#pymssql
+pylint
+#pyflakes
+#psycopg2
+ipython
+#bicyclerepair
+#pychecker
+fabric
+#couchDB
+#BeautifulSoup
+#mechanize
+
+#!---- system extras
+
+pygments
+#virtualenvwrapper
+
+
+#!---- other frameworks
+
+
+
+
+#!---- must have apps & libs - django specific
+django==1.3
+South 
+django-extensions
+django-debug-toolbar
+django-explain-commands
+#django-selenium-test-runner
+
+#!---- misc tools
+#django-imagekit
+#django-taggit
+#django-flatblocks
+#-e git://github.com/montylounge/django_cropper.git@194e3c94b0abcb5ec2a9788ff1fe474779b3f67d#egg=django-cropper-0.1.5a-py2.5-dev
+
+
+#!---- django-media
+
+#django-compressor
+#django-static
+#django-staticfiles
+#django-robots
+
+
+#!---- django-admin
+
+#-e svn+http://django-grappelli.googlecode.com/svn/trunk/#egg=django_grappelli-svn
+#-e svn+http://django-filebrowser.googlecode.com/svn/trunk/#egg=django_filebrowser-svn
+#-e git://github.com/jpwatts/django-positions.git#egg=django_positions-0.4.2-py2.6-dev
+#django-admin-tools
+#django-request
+#django-memcache-status
+
+#!---- wysiwyg,editors,markup
+
+#django-tinymce
+#django-markup
+
+#!----

@@ -1,0 +1,28 @@
+from craigdillon.core.photogallery.models import Category
+ 
+def nav(request):
+    path = request.path.strip('/').split('/')[0]
+
+    category = []
+    for i in Category.objects.all():
+        item = [i.title,'/%s' % i.title_slug, False]
+        category.insert(0,item)
+    
+
+    bio = ['bio','/bio', False]
+    contact = ['contact','/contact', False]
+    
+    menu = []
+    menu.append(bio)
+    menu.append(contact)
+
+    for item in menu:
+        if item[1].replace('/','') == path:
+            item[2] = True
+    
+    for item in category:
+        if item[1].replace('/','') == path:
+            item[2] = True
+
+    return {'menu':menu, 'categories':category, 'path': path}
+

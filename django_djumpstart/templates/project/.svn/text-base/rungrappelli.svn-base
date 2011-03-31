@@ -1,0 +1,2 @@
+workon craigdillon
+python manage.py runserver  --adminmedia=media/admin

@@ -1,0 +1,158 @@
+# Django settings for project.
+# The settings here are project related and not deployment specific.
+# This file should not be changed to include deployment specific changes.
+# A host_settings.py settings file will automatically be created where
+# deployment specific changes should be made.
+
+import os
+from socket import gethostname
+
+# Setting environment variables 
+
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = PROJECT_PATH.split(os.sep)[-1]
+MEDIA_URL = "http://127.0.0.1/tbw/"
+MEDIA_ROOT = '%s/media/' % (PROJECT_DIR)
+#MEDIA_ROOT = (os.path.join(PROJECT_PATH, "templates"),)
+
+
+TEMPLATE_DIRS = (os.path.join(PROJECT_PATH, "templates"),)
+ADMIN_MEDIA_PREFIX = "/media/admin/"
+ROOT_URLCONF = "%s.urls" % PROJECT_DIR
+URL_FILEBROWSER_MEDIA  = "%s/media/uploads/" % PROJECT_DIR
+SITE_ID = 1
+
+
+# Language code for this installation. All choices can be found here:
+# http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
+# http://blogs.law.harvard.edu/tech/stories/storyReader$15
+LANGUAGE_CODE = 'de-at'
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.load_template_source',
+    'django.template.loaders.app_directories.load_template_source',
+     'django.template.loaders.eggs.load_template_source',
+)
+
+MIDDLEWARE_CLASSES = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',       
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.csrf.middleware.CsrfMiddleware', 
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+)
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.load_template_source',
+    'django.template.loaders.app_directories.load_template_source',
+#     'django.template.loaders.eggs.load_template_source',
+)
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.auth",
+    "django.core.context_processors.request",
+    "django.core.context_processors.media",
+    "grappelli.context_processors.admin_template_path",
+)
+
+INSTALLED_APPS = ( 
+#    'admin_tools.dashboard',
+    'imagekit',
+#    'craigdillon.core.photogallery',
+#    'craigdillon.core.info',
+    #'photologue',
+    'grappelli',
+    'django.contrib.auth',
+    'django.contrib.comments',
+    'django.contrib.humanize',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.admin',
+    
+    # 3rd party apps
+    'debug_toolbar',
+    'django_extensions',
+     #'south',
+    'tinymce',
+    'filebrowser',
+    #'staticfiles',
+    'tagging',	
+    # core apps
+    'tbw.core.info',
+    'tbw.core.projects',
+)
+
+# AUTH
+
+# These settings are used to authenticate to the SMTP server
+
+# Controls whether a secure connection is used.
+EMAIL_USE_TLS = True
+
+#TINYMCE
+TINYMCE_JS_URL = '/site_media/scripts/tiny_mce_src.js'
+TINYMCE_JS_ROOT = '/site_media/scripts/'
+TINYMCE_DEFAULT_CONFIG = {
+      'theme': "advanced",
+      'cleanup_on_startup': True,
+      'custom_undo_redo_levels': 10,
+  }
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = False
+TINYMCE_FILEBROWSER = True
+
+# Loading deployment settings
+
+#DEBUG TOOLBAR
+INTERNAL_IPS = ('127.0.0.1',)
+
+try: 
+    from defaultsettings import *
+except ImportError:
+    pass
+
+
+
+CONFIG_PATH = os.path.join(PROJECT_PATH,"conf","host_settings")
+HOST_SETTINGS_MODULE = "%s_%s" % (PROJECT_DIR, 
+    gethostname().replace("-", "_").replace(".", "_").lower())
+HOST_SETTINGS_PATH = os.path.join(CONFIG_PATH,  
+    "%s.py" % HOST_SETTINGS_MODULE)
+
+print "Loading host-specific settings..."
+
+if not os.path.exists(HOST_SETTINGS_PATH):
+    print "Host file does not exist, trying to create one under conf/host_settings. Will use default settings for now."
+    try:
+        f = open(HOST_SETTINGS_PATH, "w")
+        f.close()
+    except IOError:
+        print "Error: Couldn't create host_settings module: %s. Check folder permissions." % HOST_SETTINGS_PATH
+try:
+    importstring =  "from conf.host_settings.%s import *" % (HOST_SETTINGS_MODULE)
+    exec importstring
+except ImportError:
+    print "Error: Could not import %s.conf.host_settings.%s. Using defaultsettings." % (PROJECT_DIR, HOST_SETTINGS_MODULE)
+    print importstring
+
+try:
+    print "Loading database settings from database.py..."
+    from database import *
+except ImportError:
+    print "Error: Could not import database settings! Using defaultsettings"
+
+    
+
+
+
+
+
+

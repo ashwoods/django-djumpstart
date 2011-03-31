@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 26
+/svn/!svn/ver/1156/tbw/tbw
+END
+manage.py
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/1155/tbw/tbw/manage.py
+END
+requirements.txt
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/1155/tbw/tbw/requirements.txt
+END
+rungrappelli
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/1155/tbw/tbw/rungrappelli
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/1155/tbw/tbw/__init__.py
+END
+settings.py
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/1155/tbw/tbw/settings.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/1155/tbw/tbw/tests.py
+END
+database.py
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/1155/tbw/tbw/database.py
+END
+defaultsettings.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/1155/tbw/tbw/defaultsettings.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/svn/!svn/ver/1155/tbw/tbw/urls.py
+END
+dashboard.py
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/1155/tbw/tbw/dashboard.py
+END

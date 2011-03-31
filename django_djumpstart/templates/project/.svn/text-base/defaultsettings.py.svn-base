@@ -1,0 +1,20 @@
+import os
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    # ('Ashley Camba', 'ashwoods@gmail.com'),
+)
+
+MANAGERS = ADMINS
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '3q%jutns^*f84z%tbv=55j_fkb$hrkl0a-or+b6(8f9h=hy)+2'
+
+
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+#   'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+}

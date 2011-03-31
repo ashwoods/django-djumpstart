@@ -1,0 +1,8 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tbw',
+        'PASSWORD':'st0n407k',
+        'USER':'root',
+    }
+}

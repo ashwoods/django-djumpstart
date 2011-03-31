@@ -1,0 +1,38 @@
+#using mingus file as base
+# testing svn
+
+South==0.7.1 
+python-dateutil==1.4.1
+django==1.2.3
+django-debug-toolbar==0.8.1
+django-robots==0.6.1
+django-dbtemplates==0.6.1
+django-markup==0.3
+django-memcache-status==1.0.1
+django-imagekit
+django-admin-tools
+#django-taggit
+django-photologue
+django-tinymce
+django-staticfiles
+django-extensions
+#django-sortedm2m
+
+-e git+http://github.com/gregmuellegger/django-sortedm2m.git#egg=django-sortedm2m
+-e svn+http://django-tagging.googlecode.com/svn/trunk/#egg=django-tagging
+#-e svn+http://django-photologue.googlecode.com/svn/trunk/#egg=django_photologue-svn
+-e svn+http://django-filebrowser.googlecode.com/svn/trunk/#egg=django_filebrowser-svn
+-e svn+http://django-grappelli.googlecode.com/svn/trunk/#egg=django_grappelli-svn
+
+-e git://github.com/jpwatts/django-positions.git#egg=django_positions-0.4.2-py2.6-dev
+# -e git://github.com/django-extensions/django-extensions.git#egg=django_extensions-0.4.2_pre-py2.5-dev
+#-e git://github.com/montylounge/django-basic-apps.git@72ad0a50a464d3dd296a566f749e86b1f9080bac#egg=django_basic_apps-0.6-py2.5-dev
+#-e git://github.com/mintchaos/django_compressor.git@7f314c513410a5be6379edf1abfc4f1730a36d09#egg=django_compressor-0.5.1-py2.5-dev
+#-e git://github.com/zerok/django-flatblocks.git@77c310727d5ec5a0f69cdeda2b71bea8613503f0#egg=django_flatblocks-0.3.3-py2.5-dev
+-e svn+http://django-navbar.googlecode.com/svn/trunk@20#egg=django_navbar-0.1.1rc1-py2.5-dev_r20
+#-e svn+http://django-tinymce.googlecode.com/svn/trunk@96#egg=django_tinymce-trunk-py2.5-dev_r96
+#-e git://github.com/pydanny/django-wysiwyg.git@b280e1b75326363dfe746d8c36425cfbed53b4ec#egg=django_wysiwyg-0.1.0-py2.5-dev
+#-e git://github.com/montylounge/django-google-analytics.git@6b7aa6dba851dd59dca0a20bc7eefe70754384e4#egg=google_analytics-0.1-py2.5-dev
+-e svn+http://django-template-utils.googlecode.com/svn/trunk@109#egg=template_utils-0.4p2-py2.5-dev_r109
+#-e git://github.com/montylounge/django_cropper.git@194e3c94b0abcb5ec2a9788ff1fe474779b3f67d#egg=django-cropper-0.1.5a-py2.5-dev
+#-e git://github.com/kylef/django-request.git@84cfef56f6eea281a9c382859fb29ef570c7295d#egg=django_request-0.21-py2.5-dev
