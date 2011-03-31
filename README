@@ -1,48 +1,89 @@
 ============
-StartProject
+Djumpstart
 ============
 
-StartProject installs a script which allows the easy creation of a standard
-Django project layout based on Lincoln Loop standards.
+Djumpstart installs a script which allows the easy creation of a standard
+Django project and/or app layouts, based on Lincoln Loop start_project .
+
+
+The project has a limited scope: simple project layout creation allowing
+limited variable subsitition. It uses $string substition in the template files,
+using string.Template.
 
 
 Script usage
 ============
 
-After installing StartProject, simply run the following command (from within
-the directory in where the new project directory should be created)::
+After installing Djumpstart, simply run the following command (from within
+the directory in where the new project directory should be created) to create
+a new project using the default project layout::
 
-	django-startproject.py project_name
+	djumpstart.py project [project_name]
+
+or the folling command to create a new app using the default app layout::
+
+    djumpstart.py app [app_name]
+
 
 The script will prompt for values to replace boilerplate variables with. These
 variables allow for both the file contents and path names to be customized to
 this specific project.
 
 
-Using a custom project template
-===============================
+Using a custom project or app template
+======================================
 
-If you would prefer to use a custom project template than the one included in
-this application, create your custom project template directory and call the
+If you would prefer to use a custom template than the one included in
+this application, create your custom template and call the
 command script like this::
 
-    django-startproject.py --template-dir=/your/custom/template project_name
+
+    djumpstart.py --template=/your/custom/template project_or_app_name
+
+
+You can also keep several custom templates in a folder, and have djumpstart
+use that folder as the template repository.
+
+Djumpstart by default looks for a directory $HOME/.djumpstart/templates
+You can override the default template directory by setting the 
+environment variable DJUMPSTART_HOME.
+
+You can do this by adding the following line to your .bashrc file:
+
+    export DJUMPSTART_HOME=$HOME/.djumpstart
+
+*Note: Djumpstart looks for directory called templates under DJUMPSTART_HOME.
+Djumpstart will also look for a file called .defaults.py for default boilerplate 
+variables.
 
 
 Specifying boilerplate variables
 --------------------------------
 
-Two optional files in the root of the project template directory are used to
-determine the boilerplate variables:
+Djumpstart will look for a variable called DJUMPSTART_TEMPLATE_VARS in a file 
+called djumpstart_var.py in the template root.
 
-``.startproject_boilerplate``
-	Each line should contain the boilerplate variable (and optionally, a
-	description of the variable, separated from the variable by white space).
+Each entry should have:
+variable name, (default, help text)
 
-``.startproject_defaults``
-	Each line should contain a variable and the default value, separated by
-	whitespace. If the default value contains ``PROJECT``, it is replaced with
-	the project name.
+but you can omit some if you want, example:
 
-See the files included in the project_template directory of StartProject for
-an example.
+
+    DJUMPSTART_TEMPLATE_VARS = {
+       'project_name': ('myproject','The name of the project'),          
+       'author_name' : 'me',                 
+       'author_email': None, 
+       'key': (None, 'Google api key'),
+     }
+
+
+Djumpstart will insert the default (or will prompt you for values if you use
+the -prompt option)
+
+Djumpstart will look for a default_vars.py or template specific file in 
+default_vars_%s % (template_name) in your DJUMPSTART_HOME too for default values.
+
+I use string.Template (http://docs.python.org/library/string.html#template-strings)
+for parsing the templates, that uses $identifier as subsition placeholder,
+$$ for escaping $. Keep this in mind when creating your own templates,
+specially Django templates that have {[vars}}. 

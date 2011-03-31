@@ -2,7 +2,9 @@ import os
 import re
 import shutil
 import stat
+import sys
 
+from string import Template
 
 def copy_template(src, dest, replace=None):
     """
@@ -11,28 +13,22 @@ def copy_template(src, dest, replace=None):
     To replace boilerplate strings in the source data, pass a dictionary to the
     ``replace`` argument where each key is the boilerplate string and the
     corresponding value is the string which should replace it.
-    
-    The destination file paths are also parsed through the boilerplate
     replacements, so directories and file names may also be modified.
     
     """
     for path, dirs, files in os.walk(src):
         relative_path = path[len(src):].lstrip('/')
         # Replace boilerplate strings in destination directory.
-        for old_val, new_val in replace.items():
-            relative_path = relative_path.replace(old_val, new_val)
         os.mkdir(os.path.join(dest, relative_path))
         for i, subdir in enumerate(dirs):
             if subdir.startswith('.'):
                 del dirs[i]
         for filename in files:
-            if (filename.startswith('.startproject') or
+            if (filename.startswith('djumpstart') or
                 filename.endswith('.pyc')):
                 continue
             src_file_path = os.path.join(path, filename)
             # Replace boilerplate strings in destination filename.
-            for old_val, new_val in replace.items():
-                filename = filename.replace(old_val, new_val)
             dest_file_path = os.path.join(dest, relative_path, filename)
             copy_template_file(src_file_path, dest_file_path, replace)
 
@@ -52,11 +48,11 @@ def copy_template_file(src, dest, replace=None):
     data = src_file.read()
     src_file.close()
     # Replace boilerplate strings.
-    for old_val, new_val in replace.items():
-        data = data.replace(old_val, new_val)
+    s = Template(data)
+    rendered_template = s.safe_substitute(replace)
     # Write the data to the destination file.
     dest_file = open(dest, 'w')
-    dest_file.write(data)
+    dest_file.write(rendered_template)
     dest_file.close()
     # Copy permissions from source file.
     shutil.copymode(src, dest)
@@ -67,9 +63,9 @@ def copy_template_file(src, dest, replace=None):
         os.chmod(dest, new_permissions)
 
 
-def get_boilerplate(path, project_name):
+def get_template_vars(path):
     """
-    Look for a ``.startproject_boilerplate`` file the given path and parse it.
+    Look for a ``.djumpstart.py`` file the given path and parse it.
     
     Return a list of 3-part tuples, each containing a boilerplate variable,
     optional description and default value.
@@ -78,23 +74,10 @@ def get_boilerplate(path, project_name):
     an empty list.
     
     """
-    defaults = {}
-    defaults_path = os.path.join(path, '.startproject_defaults')
-    if os.path.isfile(defaults_path):
-        defaults_file = open(defaults_path, 'r')
-        for line in defaults_file:
-            match = re.match(r'\s*(\w+)\s*(.*)$', line)
-            if match:
-                var, default = match.groups()
-                defaults[var] = default
-    boilerplate = []
-    boilerplate_path = os.path.join(path, '.startproject_boilerplate')
-    if os.path.isfile(boilerplate_path):
-        boilerplate_file = open(boilerplate_path, 'r')
-        for line in boilerplate_file:
-            match = re.match(r'\s*(\w+)\s*(.*)$', line)
-            if match:
-                var, description = match.groups()
-                default = defaults.get(var)
-                boilerplate.append((var, description, default))
-    return boilerplate
+    djumpstart_path = os.path.join(path, 'djumpstart_vars.py')
+    if os.path.isfile(djumpstart_path):
+        sys.path.insert(0, path)
+        from djumpstart_vars import DJUMPSTART_TEMPLATE_VARS
+        return DJUMPSTART_TEMPLATE_VARS
+    else:
+        return {}
